@@ -21,7 +21,7 @@ RUN pecl install xdebug; \
 RUN apk del $PHPIZE_DEPS imagemagick-dev icu-dev zlib-dev jpeg-dev libpng-dev libzip-dev postgresql-dev libgomp
 
 # Final image
-FROM php:8.4-alpine
+FROM php:8.4-fpm-alpine
 
 # Copy only the necessary files from the builder stage
 COPY --from=builder /usr/local/lib/php/extensions /usr/local/lib/php/extensions
@@ -42,5 +42,3 @@ WORKDIR /var/www/html
 USER www:www
 
 EXPOSE 9000
-
-CMD ["php-fpm"]
