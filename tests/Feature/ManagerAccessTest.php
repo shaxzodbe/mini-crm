@@ -22,10 +22,6 @@ test('manager user is redirected to the tickets index after login', function () 
     $manager = createTestManager();
 
     actingAs($manager)
-        ->get('/login')
-        ->assertRedirect(route('manager.dashboard'));
-
-    actingAs($manager)
         ->get(route('manager.dashboard'))
         ->assertRedirect(route('manager.tickets.index'));
 

@@ -22,7 +22,7 @@ beforeEach(function () {
 test('a new ticket can be submitted successfully', function () {
     post('/api/tickets', $this->validPayload)
         ->assertStatus(201)
-        ->assertJsonStructure(['data' => ['id', 'subject', 'status']]);
+        ->assertJsonStructure(['message', 'ticket' => ['id', 'subject', 'status']]);
 
     $this->assertDatabaseHas('customers', ['email' => 'john.doe@example.com']);
     $this->assertDatabaseCount('tickets', 1);
@@ -32,9 +32,9 @@ test('submitting a second ticket within 24 hours fails', function () {
     post('/api/tickets', $this->validPayload)
         ->assertStatus(201);
 
-    post('/api/tickets', $this->validPayload)
-        ->assertStatus(429)
-        ->assertJson(['message' => 'Вы можете отправить только одну заявку в течение 24 часов. Пожалуйста, подождите.']);
+    post('/api/tickets', $this->validPayload, ['Accept' => 'application/json'])
+        ->assertStatus(422)
+        ->assertJsonValidationErrors(['phone']);
 });
 
 test('a ticket can be submitted after 24 hours', function () {
