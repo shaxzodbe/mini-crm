@@ -26,7 +26,7 @@
             </style>
 
     <script>
-        var tryItOutBaseUrl = "http://localhost:8000";
+        var tryItOutBaseUrl = "http://localhost:1000";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
@@ -74,6 +74,9 @@
                                                     <li class="tocify-item level-2" data-unique="endpoints-POSTapi-tickets">
                                 <a href="#endpoints-POSTapi-tickets">POST api/tickets</a>
                             </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-tickets-statistics">
+                                <a href="#endpoints-GETapi-tickets-statistics">GET api/tickets/statistics</a>
+                            </li>
                                                                         </ul>
                             </ul>
             </div>
@@ -94,7 +97,7 @@
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <aside>
-    <strong>Base URL</strong>: <code>http://localhost:8000</code>
+    <strong>Base URL</strong>: <code>http://localhost:1000</code>
 </aside>
 <pre><code>This documentation aims to provide all the information you need to work with our API.
 
@@ -121,20 +124,20 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost:8000/api/tickets" \
+    "http://localhost:1000/api/tickets" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "name=b"\
-    --form "phone=n"\
-    --form "email=ashly64@example.com"\
-    --form "subject=v"\
-    --form "text=architecto"\
-    --form "files[]=@/tmp/phpld0d7f5qlc93aAKIkoi" </code></pre></div>
+    --form "name=Иван Петров"\
+    --form "phone=+79001234567"\
+    --form "email=ivan@example.com"\
+    --form "subject=Проблема с авторизацией"\
+    --form "text=При попытке войти в систему возникает ошибка 500."\
+    --form "files[]=@/tmp/php47rvdgap00plcpDGEDN" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/tickets"
+    "http://localhost:1000/api/tickets"
 );
 
 const headers = {
@@ -143,11 +146,11 @@ const headers = {
 };
 
 const body = new FormData();
-body.append('name', 'b');
-body.append('phone', 'n');
-body.append('email', 'ashly64@example.com');
-body.append('subject', 'v');
-body.append('text', 'architecto');
+body.append('name', 'Иван Петров');
+body.append('phone', '+79001234567');
+body.append('email', 'ivan@example.com');
+body.append('subject', 'Проблема с авторизацией');
+body.append('text', 'При попытке войти в систему возникает ошибка 500.');
 body.append('files[]', document.querySelector('input[name="files[]"]').files[0]);
 
 fetch(url, {
@@ -236,10 +239,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="POSTapi-tickets"
-               value="b"
+               value="Иван Петров"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>b</code></p>
+<p>Имя клиента. Must not be greater than 255 characters. Example: <code>Иван Петров</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
@@ -247,10 +250,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="phone"                data-endpoint="POSTapi-tickets"
-               value="n"
+               value="+79001234567"
                data-component="body">
     <br>
-<p>Must match the regex /^+\d{9,15}$/. Must not be greater than 15 characters. Example: <code>n</code></p>
+<p>Номер телефона клиента в международном формате (например, +79001234567). Must match the regex /^+\d{9,15}$/. Must not be greater than 15 characters. Example: <code>+79001234567</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
@@ -258,10 +261,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-tickets"
-               value="ashly64@example.com"
+               value="ivan@example.com"
                data-component="body">
     <br>
-<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>ashly64@example.com</code></p>
+<p>Адрес электронной почты клиента. Must be a valid email address. Must not be greater than 255 characters. Example: <code>ivan@example.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>subject</code></b>&nbsp;&nbsp;
@@ -269,10 +272,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="subject"                data-endpoint="POSTapi-tickets"
-               value="v"
+               value="Проблема с авторизацией"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>v</code></p>
+<p>Тема заявки/запроса. Must not be greater than 255 characters. Example: <code>Проблема с авторизацией</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>text</code></b>&nbsp;&nbsp;
@@ -280,10 +283,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="text"                data-endpoint="POSTapi-tickets"
-               value="architecto"
+               value="При попытке войти в систему возникает ошибка 500."
                data-component="body">
     <br>
-<p>Example: <code>architecto</code></p>
+<p>Полный текст сообщения/описания проблемы. Example: <code>При попытке войти в систему возникает ошибка 500.</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>files</code></b>&nbsp;&nbsp;
@@ -299,6 +302,137 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Must be a file. Must not be greater than 2048 kilobytes.</p>
         </div>
         </form>
+
+                    <h2 id="endpoints-GETapi-tickets-statistics">GET api/tickets/statistics</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-tickets-statistics">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost:1000/api/tickets/statistics" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:1000/api/tickets/statistics"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-tickets-statistics">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;period&quot;: {
+            &quot;daily&quot;: 2,
+            &quot;weekly&quot;: 5,
+            &quot;monthly&quot;: 31
+        },
+        &quot;total_message&quot;: &quot;Number of applications for the specified periods.&quot;
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-tickets-statistics" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-tickets-statistics"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-tickets-statistics"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-tickets-statistics" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-tickets-statistics">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-tickets-statistics" data-method="GET"
+      data-path="api/tickets/statistics"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-tickets-statistics', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-tickets-statistics"
+                    onclick="tryItOut('GETapi-tickets-statistics');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-tickets-statistics"
+                    onclick="cancelTryOut('GETapi-tickets-statistics');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-tickets-statistics"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/tickets/statistics</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-tickets-statistics"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-tickets-statistics"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
 
             
 

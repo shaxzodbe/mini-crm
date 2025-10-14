@@ -27,6 +27,43 @@ class StoreTicketRequest extends FormRequest
         ];
     }
 
+    public function bodyParameters(): array
+    {
+        return [
+            'name' => [
+                'description' => 'Имя клиента.',
+                'required' => false,
+                'example' => 'Иван Петров',
+            ],
+            'phone' => [
+                'description' => 'Номер телефона клиента в международном формате (например, +79001234567).',
+                'required' => true,
+                'example' => '+79001234567',
+            ],
+            'email' => [
+                'description' => 'Адрес электронной почты клиента.',
+                'required' => true,
+                'example' => 'ivan@example.com',
+            ],
+            'subject' => [
+                'description' => 'Тема заявки/запроса.',
+                'required' => true,
+                'example' => 'Проблема с авторизацией',
+            ],
+            'text' => [
+                'description' => 'Полный текст сообщения/описания проблемы.',
+                'required' => true,
+                'example' => 'При попытке войти в систему возникает ошибка 500.',
+            ],
+            'files' => [
+                'description' => 'Массив файлов для прикрепления (не более 5).',
+                'required' => false,
+                'example' => null, // Или пример с файлом, если возможно
+            ],
+            // Примечание: 'files.*' не требует отдельного bodyParameter, так как это часть 'files'
+        ];
+    }
+
     public function withValidator(Validator $validator): void
     {
         $ticketRepository = app(TicketRepository::class);

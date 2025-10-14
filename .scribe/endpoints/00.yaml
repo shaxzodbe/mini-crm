@@ -25,9 +25,9 @@ endpoints:
     bodyParameters:
       name:
         name: name
-        description: 'Must not be greater than 255 characters.'
+        description: 'Имя клиента. Must not be greater than 255 characters.'
         required: false
-        example: b
+        example: 'Иван Петров'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -35,9 +35,9 @@ endpoints:
         custom: []
       phone:
         name: phone
-        description: 'Must match the regex /^\+\d{9,15}$/. Must not be greater than 15 characters.'
+        description: 'Номер телефона клиента в международном формате (например, +79001234567). Must match the regex /^\+\d{9,15}$/. Must not be greater than 15 characters.'
         required: true
-        example: 'n'
+        example: '+79001234567'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -45,9 +45,9 @@ endpoints:
         custom: []
       email:
         name: email
-        description: 'Must be a valid email address. Must not be greater than 255 characters.'
+        description: 'Адрес электронной почты клиента. Must be a valid email address. Must not be greater than 255 characters.'
         required: true
-        example: ashly64@example.com
+        example: ivan@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -55,9 +55,9 @@ endpoints:
         custom: []
       subject:
         name: subject
-        description: 'Must not be greater than 255 characters.'
+        description: 'Тема заявки/запроса. Must not be greater than 255 characters.'
         required: true
-        example: v
+        example: 'Проблема с авторизацией'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -65,9 +65,9 @@ endpoints:
         custom: []
       text:
         name: text
-        description: ''
+        description: 'Полный текст сообщения/описания проблемы.'
         required: true
-        example: architecto
+        example: 'При попытке войти в систему возникает ошибка 500.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -85,15 +85,55 @@ endpoints:
         nullable: false
         custom: []
     cleanBodyParameters:
-      name: b
-      phone: 'n'
-      email: ashly64@example.com
-      subject: v
-      text: architecto
+      name: 'Иван Петров'
+      phone: '+79001234567'
+      email: ivan@example.com
+      subject: 'Проблема с авторизацией'
+      text: 'При попытке войти в систему возникает ошибка 500.'
     fileParameters:
       files:
         - null
     responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/tickets/statistics
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"data":{"period":{"daily":2,"weekly":5,"monthly":31},"total_message":"Number of applications for the specified periods."}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
     responseFields: []
     auth: []
     controller: null
