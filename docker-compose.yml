@@ -10,7 +10,21 @@ services:
       - .:/var/www/html
     depends_on:
       - db
-    #   - redis # Если используется для кеша/очередей
+
+    user: www
+    environment:
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=mini_crm
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+
+    command: /bin/sh -c "sleep 5 && 
+      composer install --ignore-platform-reqs --optimize-autoloader && 
+      npm install && if [ ! -f .env ]; then cp .env.example .env; php artisan key:generate; fi && 
+      php artisan migrate:fresh --seed --force && 
+      npm run build && php-fpm"
 
   nginx:
     image: nginx:stable-alpine
@@ -24,6 +38,7 @@ services:
     depends_on:
       - app
       - db
+    command: [ "/bin/sh", "-c", "sleep 10 && nginx -g 'daemon off;'" ]
 
   db:
     image: postgres:16-alpine

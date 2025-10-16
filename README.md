@@ -32,7 +32,9 @@ a
     ```bash
    docker-compose exec app php artisan migrate:fresh --seed
 
-Проект будет доступен по адресу: http://localhost:1000
+**Проект будет доступен по адресу: http://localhost:1000**
+
+**Страница для входа (логина):** **http://localhost:1000/login**
 
 **Тестовые данные**
 Роль                    Email                      Пароль 
