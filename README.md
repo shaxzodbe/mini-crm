@@ -14,6 +14,10 @@ a
    ```bash
    docker-compose up -d --build
 
+3. **Запуск тестов:**
+   ```bash
+   docker-compose exec app ./vendor/bin/pest
+
 **Проект будет доступен по адресу: http://localhost:1000**
 
 **Страница для входа (логина):** **http://localhost:1000/login**

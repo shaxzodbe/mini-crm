@@ -58,9 +58,8 @@ class StoreTicketRequest extends FormRequest
             'files' => [
                 'description' => 'Массив файлов для прикрепления (не более 5).',
                 'required' => false,
-                'example' => null, // Или пример с файлом, если возможно
+                'example' => null,
             ],
-            // Примечание: 'files.*' не требует отдельного bodyParameter, так как это часть 'files'
         ];
     }
 
