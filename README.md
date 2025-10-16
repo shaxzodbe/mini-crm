@@ -17,6 +17,7 @@ a
 **Проект будет доступен по адресу: http://localhost:1000**
 
 **Страница для входа (логина):** **http://localhost:1000/login**
+**Документация API: http://localhost:1000/docs**
 
 **Тестовые данные**
 Роль                    Email                      Пароль 
@@ -29,9 +30,6 @@ a
 ```bash
 <iframe src="[http://your-domain.com/widget](http://your-domain.com/widget)" width="400" height="600" frameborder="0"></iframe>
 ```
-
-**Документация API**
-Базовый URL: `http://your-domain.com/api`
 
 Метод	Маршрут	Описание
 * POST	/tickets	Создание новой заявки через виджет.
