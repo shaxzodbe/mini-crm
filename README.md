@@ -7,30 +7,12 @@ a
 
 1. **Клонирование репозитория:**
    ```bash
-   git clone 
+   git clone https://github.com/shaxzodbe/mini-crm.git
    cd mini-crm
    
 2. **Запуск Docker-контейнеров:**
    ```bash
    docker-compose up -d --build
-
-3. **Установка PHP-зависимостей:**
-   ```bash
-   docker-compose exec app composer install
-   
-4. **Установка Node-зависимостей и запуск фронтенда (Vite):**
-   ```bash
-   docker-compose exec app npm install
-   docker-compose exec app npm run dev
-
-5. **Настройка Laravel:**
-   ```bash
-   docker-compose exec app cp .env.example .env
-   docker-compose exec app php artisan key:generate
-   
-6. **Миграции и тестовые данные:**
-    ```bash
-   docker-compose exec app php artisan migrate:fresh --seed
 
 **Проект будет доступен по адресу: http://localhost:1000**
 
