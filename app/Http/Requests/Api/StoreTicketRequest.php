@@ -34,8 +34,8 @@ class StoreTicketRequest extends FormRequest
 
         $validator->after(function ($validator) use ($ticketRepository) {
             $recentTicket = $ticketRepository->getRecentTicketByContact(
-                $this->input('phone'),
-                $this->input('email'),
+                (string) $this->input('phone'),
+                (string) $this->input('email'),
                 Carbon::now()->subDay()
             );
 

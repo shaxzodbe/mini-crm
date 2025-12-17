@@ -36,7 +36,6 @@
             align-items: center;
             min-height: 100vh;
             overflow: hidden;
-            /* Prevent scrollbars in iframe if possible */
         }
 
         .widget-container {
@@ -271,7 +270,7 @@
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
-                        // 'X-CSRF-TOKEN': '{{ csrf_token() }}' // Not needed for API routes usually, but if session based? API is usually stateless.
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     body: formData
                 });

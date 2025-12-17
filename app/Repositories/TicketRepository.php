@@ -21,15 +21,15 @@ class TicketRepository
 
     public function getRecentTicketByContact(?string $phone, ?string $email, Carbon $since): ?Ticket
     {
-        if ($phone === null && $email === null) {
+        if (empty($phone) && empty($email)) {
             return null;
         }
         return Ticket::query()
             ->whereHas('customer', function ($query) use ($phone, $email) {
-                if ($phone !== null) {
+                if (!empty($phone)) {
                     $query->where('phone', $phone);
                 }
-                if ($email !== null) {
+                if (!empty($email)) {
                     $query->orWhere('email', $email);
                 }
             })
