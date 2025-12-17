@@ -5,6 +5,7 @@ namespace App\Http\Requests\Api;
 use App\Repositories\TicketRepository;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Validator;
 
 class StoreTicketRequest extends FormRequest
@@ -32,7 +33,6 @@ class StoreTicketRequest extends FormRequest
         $ticketRepository = app(TicketRepository::class);
 
         $validator->after(function ($validator) use ($ticketRepository) {
-
             $recentTicket = $ticketRepository->getRecentTicketByContact(
                 $this->input('phone'),
                 $this->input('email'),
@@ -40,8 +40,11 @@ class StoreTicketRequest extends FormRequest
             );
 
             if ($recentTicket) {
-                $validator->errors()->add('phone', 'С вашего номера или email уже была отправлена заявка за последние 24 часа. Пожалуйста, подождите.');
-                $validator->errors()->add('email', 'С вашего номера или email уже была отправлена заявка за последние 24 часа. Пожалуйста, подождите.');
+                throw new HttpResponseException(
+                    response()->json([
+                        'message' => 'Вы можете отправить только одну заявку в течение 24 часов. Пожалуйста, подождите.',
+                    ], 429)
+                );
             }
         });
     }

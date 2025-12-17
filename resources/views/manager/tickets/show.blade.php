@@ -22,7 +22,9 @@
                         <div class="alert alert-light">{{ $ticket->text }}</div>
                         <p><strong>Дата создания:</strong> {{ $ticket->created_at->format('Y-m-d H:i:s') }}</p>
                         @if ($ticket->manager_response_at)
-                            <p><strong>Дата ответа менеджера:</strong> {{ $ticket->manager_response_at->format('Y-m-d H:i:s') }}</p>
+                            <p>
+                                <strong>Дата ответа менеджера:</strong> {{ $ticket->manager_response_at->format('Y-m-d H:i:s') }}
+                            </p>
                         @endif
                     </div>
                 </div>
@@ -53,7 +55,8 @@
                     </div>
                     <div class="card-body">
                         <p><strong>Имя:</strong> {{ $ticket->customer->name ?? 'N/A' }}</p>
-                        <p><strong>Email:</strong> <a href="mailto:{{ $ticket->customer->email }}">{{ $ticket->customer->email }}</a></p>
+                        <p><strong>Email:</strong> <a
+                                href="mailto:{{ $ticket->customer->email }}">{{ $ticket->customer->email }}</a></p>
                         <p><strong>Телефон:</strong> {{ $ticket->customer->phone }}</p>
                     </div>
                 </div>
@@ -64,9 +67,10 @@
                     </div>
                     <div class="card-body">
                         <p>Текущий статус:
-                            <span class="badge bg-{{ $ticket->status === 'new' ? 'danger' : ($ticket->status === 'in_work' ? 'warning' : 'success') }}">
-                            {{ __('ticket_statuses.' . $ticket->status) }}
-                        </span>
+                            <span
+                                class="badge bg-{{ $ticket->status->value === 'new' ? 'danger' : ($ticket->status->value === 'in-work' ? 'warning' : 'success') }}">
+                                {{ __('ticket_statuses.' . $ticket->status->value) }}
+                            </span>
                         </p>
 
                         <form method="POST" action="{{ route('manager.tickets.update_status', $ticket) }}">
@@ -77,7 +81,7 @@
                                 <label for="status">Изменить на:</label>
                                 <select name="status" id="status" class="form-control">
                                     @foreach ($statuses as $status)
-                                        <option value="{{ $status->value }}" @selected($ticket->status == $status->value)>
+                                        <option value="{{ $status->value }}" @selected($ticket->status->value == $status->value)>
                                             {{ __('ticket_statuses.' . $status->value) }}
                                         </option>
                                     @endforeach

@@ -15,15 +15,23 @@ class TicketRepository
         return $customer->tickets()->create([
             'subject' => $data['subject'],
             'text' => $data['text'],
-            'status' => TicketStatusEnum::NEW,
+            'status' => TicketStatusEnum::NEW ,
         ]);
     }
 
-    public function getRecentTicketByContact(string $phone, string $email, Carbon $since): ?Ticket
+    public function getRecentTicketByContact(?string $phone, ?string $email, Carbon $since): ?Ticket
     {
+        if ($phone === null && $email === null) {
+            return null;
+        }
         return Ticket::query()
             ->whereHas('customer', function ($query) use ($phone, $email) {
-                $query->where('phone', $phone)->orWhere('email', $email);
+                if ($phone !== null) {
+                    $query->where('phone', $phone);
+                }
+                if ($email !== null) {
+                    $query->orWhere('email', $email);
+                }
             })
             ->where('created_at', '>=', $since)
             ->latest()
@@ -51,5 +59,15 @@ class TicketRepository
         }
 
         return $query->latest()->paginate(20);
+    }
+    public function getStatistics(): array
+    {
+        $now = Carbon::now();
+
+        return [
+            'day' => Ticket::createdAfter($now->copy()->subDay())->count(),
+            'week' => Ticket::createdAfter($now->copy()->subWeek())->count(),
+            'month' => Ticket::createdAfter($now->copy()->subMonth())->count(),
+        ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TicketStatusEnum;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,6 +25,7 @@ class Ticket extends Model implements HasMedia
 
     protected $casts = [
         'manager_response_at' => 'datetime',
+        'status' => TicketStatusEnum::class,
     ];
 
     public function customer(): BelongsTo
@@ -39,5 +41,10 @@ class Ticket extends Model implements HasMedia
     public function scopeCreatedBetween(Builder $query, Carbon $from, Carbon $to): void
     {
         $query->whereBetween('created_at', [$from, $to]);
+    }
+
+    public function scopeCreatedAfter(Builder $query, Carbon $date): void
+    {
+        $query->where('created_at', '>=', $date);
     }
 }

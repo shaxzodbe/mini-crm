@@ -10,12 +10,11 @@ class TicketStatisticsResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'period' => [
-                'daily' => $this->resource['daily'],
-                'weekly' => $this->resource['weekly'],
-                'monthly' => $this->resource['monthly'],
+            'data' => [
+                'day' => $this->resource['day'] ?? 0,
+                'week' => $this->resource['week'] ?? 0,
+                'month' => $this->resource['month'] ?? 0,
             ],
-            'total_message' => 'Number of applications for the specified periods.',
         ];
     }
 }

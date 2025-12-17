@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\TicketApiController;
+use App\Http\Controllers\Api\TicketController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('tickets')->group(function () {
-    Route::post('/', [TicketApiController::class, 'store'])->name('api.tickets.store');
-    Route::get('statistics', [TicketApiController::class, 'statistics'])
-        ->name('api.tickets.statistics');
+Route::prefix('v1')->group(function () {
+    Route::post('/tickets', [TicketController::class, 'store']);
+    Route::get('/ticket-statistics', [TicketController::class, 'statistics']);
 });

@@ -11,13 +11,20 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/home';
+    public function showLoginForm()
+    {
+        if (auth()->check() && auth()->user()->hasRole('manager')) {
+            return redirect()->route('manager.dashboard');
+        }
+        return view('auth.login');
+    }
+
 
     protected $redirectAfterLogout = '/home';
 
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except(['logout', 'showLoginForm']);
         $this->middleware('auth')->only('logout');
     }
 

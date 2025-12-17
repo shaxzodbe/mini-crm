@@ -8,9 +8,8 @@ use App\Http\Resources\TicketResource;
 use App\Http\Resources\TicketStatisticsResource;
 use App\Services\TicketService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Response;
 
-class TicketApiController extends Controller
+class TicketController extends Controller
 {
     protected TicketService $ticketService;
 
@@ -22,11 +21,10 @@ class TicketApiController extends Controller
     public function store(StoreTicketRequest $request): JsonResponse
     {
         $ticket = $this->ticketService->createNewTicket($request->validated(), $request->file('files') ?? []);
+        return (new TicketResource($ticket))
+            ->response()
+            ->setStatusCode(201);
 
-        return Response::json([
-            'message' => 'Заявка успешно создана.',
-            'ticket' => new TicketResource($ticket),
-        ], 201);
     }
 
     public function statistics(): TicketStatisticsResource

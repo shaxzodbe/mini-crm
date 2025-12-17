@@ -1,85 +1,57 @@
-# 🚀 Мини-CRM для сбора заявок (Laravel 12 / PHP 8.4)
+# Mini-CRM
 
-## Описание проекта
-Мини-CRM для обработки заявок с универсального виджета, с реализацией ролей (Spatie), медиа-библиотеки (Spatie MediaLibrary), и принципов SOLID/KISS/DRY.
+Mini-CRM system for handling customer tickets via a widget.
 
-## Запуск проекта (Docker-Compose)
+## Requirements
+- PHP 8.4
+- Laravel 12
+- Docker & Docker Compose
 
-1. **Клонирование репозитория:**
+## Quick Start (Docker)
+
+1. **Clone and Setup**
    ```bash
-   git clone 
+   git clone <repo>
    cd mini-crm
-   
-2. **Запуск Docker-контейнеров:**
+   cp .env.example .env
+   ```
+
+2. **Start Docker**
    ```bash
    docker-compose up -d --build
+   ```
 
-3. **Установка PHP-зависимостей:**
+3. **Install Dependencies & Migrate**
    ```bash
    docker-compose exec app composer install
-   
-4. **Установка Node-зависимостей и запуск фронтенда (Vite):**
-   ```bash
-   docker-compose exec app npm install
-   docker-compose exec app npm run dev
-
-5. **Настройка Laravel:**
-   ```bash
-   docker-compose exec app cp .env.example .env
    docker-compose exec app php artisan key:generate
-   
-6. **Миграции и тестовые данные:**
-    ```bash
-   docker-compose exec app php artisan migrate:fresh --seed
+   docker-compose exec app php artisan storage:link
+   docker-compose exec app php artisan migrate --seed
+   ```
 
-Проект будет доступен по адресу: http://localhost:80
+4. **Access**
+   - **Widget**: [http://localhost/widget](http://localhost/widget)
+   - **Admin Panel**: [http://localhost/manager](http://localhost/manager)
+     - **Login**: `manager@crm.test`
+     - **Password**: `password`
+   - **API Docs**: [http://localhost/docs](http://localhost/docs)
 
-**Тестовые данные**
-Роль                    Email                      Пароль 
-* **Менеджер/Админ**        manager@test.com       `password`
-* Обычные пользователи	(генерируются Factory)	   `password`
-
-
-**Использование виджета (Форма обратной связи)**
-Виджет доступен по маршруту `/widget`. Его можно встроить на любой внешний сайт с помощью `<iframe>`
-```bash
-<iframe src="[http://your-domain.com/widget](http://your-domain.com/widget)" width="400" height="600" frameborder="0"></iframe>
+## Widget Embedding
+To embed the widget on any website, use the following iframe code:
+```html
+<iframe src="http://your-domain.com/widget" width="100%" height="600" frameborder="0"></iframe>
 ```
 
-**Документация API**
-Базовый URL: `http://your-domain.com/api`
+## API Documentation
+Swagger documentation is available at `/docs`.
+- `POST /api/v1/tickets`: Create a new ticket.
+- `GET /api/v1/ticket-statistics`: Get ticket stats.
 
-Метод	Маршрут	Описание
-* POST	/tickets	Создание новой заявки через виджет.
-* GET	/tickets/statistics	Статистика заявок (сутки, неделя, статус).
+## Testing
+Run tests inside the container:
+```bash
+docker-compose exec app php artisan test
+```
 
----
-
-## 4. 📄 Сопроводительный файл (Архитектурные пояснения)
-
-### Структура сопроводительного файла
-
-1.  **Принципы SOLID/KISS/DRY:**
-    * **KISS/DRY (Простота и Повторное использование):** Использование **Service/Repository pattern** позволяет избежать дублирования кода и делает контроллеры "тонкими". Логика поиска клиента по контакту инкапсулирована в репозитории и переиспользуется.
-    * **SOLID (Особенно SRP):** Каждая сущность (Сервис, Репозиторий, Контроллер) отвечает только за одну область:
-        * **Controller:** Только обработка HTTP-запроса и возврат ответа.
-        * **FormRequest:** Только валидация входящих данных.
-        * **Service:** Бизнес-логика (проверка лимитов, создание заявки, прикрепление файлов).
-        * **Repository:** Работа с базой данных (CRUD, выборки с фильтрацией).
-
-2.  **Выбор библиотек:**
-    * **`spatie/laravel-permission`:** Выбран как стандарт индустрии для простого и гибкого управления ролями/доступом (вместо сложной реализации с нуля).
-    * **`spatie/laravel-medialibrary`:** Лучшее решение для управления файлами, привязанными к моделям. Позволяет легко прикреплять, извлекать и управлять коллекциями файлов.
-    * **`FormRequest` (Laravel):** Выбран для валидации, чтобы контроллеры оставались чистыми, а правила валидации (включая E.164) были инкапсулированы.
-    * **`Carbon/Eloquent Scopes`:** Использованы для чистой и читабельной реализации логики статистики и фильтрации.
-
-3.  **Особенности реализации:**
-    * **Ограничение частоты заявок:** Реализовано в **`TicketService`** (на уровне бизнес-логики), а не в контроллере или репозитории. Это обеспечивает соблюдение правила независимо от источника запроса.
-    * **Админ-панель/API:** Полное разделение маршрутов (`/manager` для Blade, `/api` для REST), что обеспечивает масштабируемость и четкость. Использование **API Resources** гарантирует, что структура ответа API всегда будет стабильной.
-    * **Виджет:** Использование AJAX-формы в Blade-шаблоне (отдельный маршрут `/widget`) позволяет легко встроить его и обеспечивает современное взаимодействие с пользователем без перезагрузки страницы.
-
----
-
-
-
-
+## Architecture
+See `ARCH_DECISIONS.md` for details on design choices.

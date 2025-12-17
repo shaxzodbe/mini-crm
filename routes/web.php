@@ -2,15 +2,14 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Manager\TicketController;
+use App\Http\Controllers\WidgetController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('widget', function () {
-    return view('widget.feedback');
-})->name('feedback.widget');
+Route::get('widget', [WidgetController::class, 'index'])->name('feedback.widget');
 
 Route::middleware(['auth', 'role:manager'])->prefix('manager')->group(function () {
-    Route::get('/', function() {
+    Route::get('/', function () {
         return redirect()->route('manager.tickets.index');
     })->name('manager.dashboard');
     Route::get('tickets', [TicketController::class, 'index'])->name('manager.tickets.index');

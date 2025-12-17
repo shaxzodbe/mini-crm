@@ -74,6 +74,9 @@
                                                     <li class="tocify-item level-2" data-unique="endpoints-POSTapi-tickets">
                                 <a href="#endpoints-POSTapi-tickets">POST api/tickets</a>
                             </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-ticket-statistics">
+                                <a href="#endpoints-GETapi-ticket-statistics">GET api/ticket-statistics</a>
+                            </li>
                                                                         </ul>
                             </ul>
             </div>
@@ -85,7 +88,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: October 14, 2025</li>
+        <li>Last updated: December 17, 2025</li>
     </ul>
 </div>
 
@@ -129,7 +132,7 @@ You can switch the language used with the tabs at the top right (or from the nav
     --form "email=ashly64@example.com"\
     --form "subject=v"\
     --form "text=architecto"\
-    --form "files[]=@/tmp/phpld0d7f5qlc93aAKIkoi" </code></pre></div>
+    --form "files[]=@/tmp/php6pmb6b3qjvekaGapiAj" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -299,6 +302,134 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Must be a file. Must not be greater than 2048 kilobytes.</p>
         </div>
         </form>
+
+                    <h2 id="endpoints-GETapi-ticket-statistics">GET api/ticket-statistics</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-ticket-statistics">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost:8000/api/ticket-statistics" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/api/ticket-statistics"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-ticket-statistics">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;day&quot;: 1,
+        &quot;week&quot;: 7,
+        &quot;month&quot;: 30
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-ticket-statistics" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-ticket-statistics"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-ticket-statistics"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-ticket-statistics" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-ticket-statistics">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-ticket-statistics" data-method="GET"
+      data-path="api/ticket-statistics"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-ticket-statistics', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-ticket-statistics"
+                    onclick="tryItOut('GETapi-ticket-statistics');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-ticket-statistics"
+                    onclick="cancelTryOut('GETapi-ticket-statistics');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-ticket-statistics"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/ticket-statistics</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-ticket-statistics"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-ticket-statistics"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
 
             
 
